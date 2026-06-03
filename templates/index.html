@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VG Interior Design | Architecture · Interior · Project Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&family=Noto+Serif+SC:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #f5f0e8;
+  --warm: #faf8f4;
+  --dark: #1a1a18;
+  --gold: #b8965a;
+  --gold2: #d4b07a;
+  --stone: #8c8378;
+  --blush: #e8ddd0;
+  --deep: #2c2820;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--warm); color:var(--dark); font-family:'Montserrat',sans-serif; font-weight:300; overflow-x:hidden; }
+
+/* NAV */
+#nav {
+  position:fixed; top:0; left:0; right:0; z-index:9999;
+  height:90px; padding:0 60px;
+  display:flex; align-items:center; justify-content:space-between;
+  background:#ffffff;
+  box-shadow:0 2px 16px rgba(0,0,0,0.08);
+}
+#nav-logo { height:88px; width:auto; display:block; }
+#nav-logo img { height:88px; width:auto; display:block; }
+a:has(#nav-logo) { display:flex; align-items:center; }
+#nav-links {
+  display:flex; align-items:center; gap:40px; list-style:none;
+}
+#nav-links a {
+  color:var(--deep); text-decoration:none;
+  font-size:13px; font-weight:400; letter-spacing:0.18em; text-transform:uppercase;
+  transition:color 0.3s; white-space:nowrap;
+}
+#nav-links a:hover { color:var(--gold); }
+#lang-wrap {
+  display:flex; align-items:center; gap:6px;
+  border-left:1px solid rgba(44,40,32,0.15); padding-left:24px;
+}
+.lbtn {
+  background:none; border:none; cursor:pointer;
+  font-family:'Montserrat',sans-serif; font-size:13px;
+  letter-spacing:0.15em; color:var(--stone);
+  padding:4px 8px; transition:color 0.3s;
+}
+.lbtn.on { color:var(--gold); border-bottom:1px solid var(--gold); }
+.lbtn:hover { color:var(--deep); }
+.lsep { color:rgba(44,40,32,0.2); }
+
+/* HERO */
+#hero {
+  min-height:100vh; display:grid; grid-template-columns:1fr 1fr;
+}
+#hero-left {
+  background:var(--dark); position:relative; overflow:hidden;
+  display:flex; flex-direction:column; justify-content:flex-end;
+  padding:70px 60px 70px 60px;
+  padding-top:170px;
+}
+#hero-bg {
+  position:absolute; inset:0;
+  background:url('/static/images/Main Bed  19.png') center/cover;
+  opacity:0.22;
+}
+#hero-left > * { position:relative; z-index:2; }
+#hero-tag {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(34px,3.8vw,56px); font-weight:300; font-style:italic;
+  color:var(--cream); line-height:1.2;
+  opacity:0; transform:translateY(20px);
+  animation:up 1s 0.3s forwards;
+}
+#hero-tag-zh {
+  font-family:'Noto Serif SC',serif;
+  font-size:clamp(26px,3vw,42px); font-weight:300;
+  color:var(--cream); line-height:1.5;
+  opacity:0; transform:translateY(20px);
+  animation:up 1s 0.3s forwards;
+}
+.hline { width:48px; height:1px; background:var(--gold); margin:24px 0; opacity:0; animation:fi 1s 0.8s forwards; }
+#hero-sub { font-size:10px; letter-spacing:0.28em; text-transform:uppercase; color:var(--gold2); opacity:0; animation:fi 1s 1s forwards; }
+#hero-cta {
+  display:inline-block; margin-top:32px; padding:13px 32px;
+  border:1px solid var(--gold); color:var(--gold); text-decoration:none;
+  font-size:10px; letter-spacing:0.22em; text-transform:uppercase;
+  transition:all 0.3s; width:fit-content;
+  opacity:0; animation:fi 1s 1.2s forwards;
+}
+#hero-cta:hover { background:var(--gold); color:var(--dark); }
+
+#hero-right { display:grid; grid-template-rows:2fr 1fr; gap:3px; padding-top:90px; background:var(--dark); }
+.hero-img { background-size:cover; background-position:center; }
+.hero-img-main { background-image:url('/static/images/Kitchen 6 -5.png'); }
+.hero-imgs-row { display:grid; grid-template-columns:1fr 1fr; gap:3px; }
+.hero-sm1 { background-image:url('/static/images/Master Ens 03.png'); background-size:cover; background-position:center; }
+.hero-sm2 { background-image:url('/static/images/Wardrobe 1.png'); background-size:cover; background-position:center; }
+
+/* REVEAL */
+.rv { opacity:0; transform:translateY(20px); transition:opacity 0.8s, transform 0.8s; }
+.rv.show { opacity:1; transform:none; }
+
+/* SECTION LABEL */
+.slabel { display:block; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
+
+/* ABOUT */
+#about { background:linear-gradient(160deg, #ede8df 0%, #e8e0d4 100%); padding:100px 60px; display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center; }
+#about h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(28px,3vw,44px); font-weight:400; line-height:1.25; margin-bottom:24px; color:var(--deep); }
+#about p { font-size:14px; line-height:1.9; color:var(--stone); margin-bottom:14px; }
+.stats { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:40px; }
+.stat { background:var(--dark); padding:26px 18px; text-align:center; }
+.stat b { font-family:'Cormorant Garamond',serif; font-size:42px; font-weight:300; color:var(--gold); display:block; }
+.stat small { font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--stone); margin-top:4px; display:block; }
+.about-imgs { height:480px; border-radius:2px; overflow:hidden; }
+.aimg { background-size:cover; background-position:center; width:100%; height:100%; transition:transform 0.5s; }
+.aimg:hover { transform:scale(1.02); }
+.aimg1 { background-image:url('/static/images/7.png'); }
+
+/* SERVICES */
+#services { background:var(--warm); padding:100px 60px; }
+#services .sh { text-align:center; margin-bottom:56px; }
+#services h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(30px,3vw,48px); font-weight:400; color:var(--deep); }
+.sgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:3px; }
+.scard {
+  background:var(--dark); padding:56px 40px; position:relative; overflow:hidden;
+  transition:transform 0.4s;
+}
+.scard-bg { position:absolute; inset:0; background-size:cover; background-position:center; opacity:0.18; transition:opacity 0.4s,transform 0.6s; }
+.scard:hover .scard-bg { opacity:0.34; transform:scale(1.06); }
+.scard:hover { transform:translateY(-4px); }
+.snum { font-family:'Cormorant Garamond',serif; font-size:64px; font-weight:300; color:var(--gold); opacity:0.3; line-height:1; position:relative; z-index:1; }
+.stitle { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:400; color:var(--cream); margin:12px 0 4px; position:relative; z-index:1; }
+.ssub { font-family:'Noto Serif SC',serif; font-size:14px; color:var(--gold2); margin-bottom:16px; position:relative; z-index:1; display:block; }
+.sline { width:28px; height:1px; background:var(--gold); margin:16px 0; position:relative; z-index:1; }
+.sdesc { font-size:13px; line-height:1.85; color:var(--stone); position:relative; z-index:1; }
+
+/* GALLERY */
+#gallery { padding:80px 0; background:var(--blush); }
+.gh { padding:0 60px 44px; }
+#gallery h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(30px,3vw,48px); font-weight:400; color:var(--deep); }
+.gtrack {
+  display:flex; gap:4px; overflow-x:auto; padding:0 60px 16px;
+  scrollbar-width:thin; scrollbar-color:var(--gold) var(--blush);
+}
+.gtrack::-webkit-scrollbar { height:3px; }
+.gtrack::-webkit-scrollbar-thumb { background:var(--gold); }
+.gitem {
+  flex:0 0 320px; height:400px; background-size:cover; background-position:center;
+  position:relative; overflow:hidden; cursor:pointer; transition:transform 0.4s;
+}
+.gitem:hover { transform:scale(1.02); }
+.gcap {
+  position:absolute; bottom:0; left:0; right:0;
+  padding:24px 18px 16px;
+  background:linear-gradient(transparent,rgba(20,18,14,0.8));
+  opacity:0; transition:opacity 0.3s;
+  font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--cream);
+}
+.gitem:hover .gcap { opacity:1; }
+
+/* PROCESS */
+#process { background:var(--dark); padding:100px 60px; }
+#process h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(30px,3vw,48px); font-weight:400; color:var(--cream); margin-bottom:56px; }
+.pgrid { display:grid; grid-template-columns:repeat(4,1fr); gap:36px; }
+.pstep { border-top:1px solid var(--gold); padding-top:28px; }
+.pnum { font-family:'Cormorant Garamond',serif; font-size:42px; color:var(--gold); opacity:0.4; }
+.ptitle { font-family:'Cormorant Garamond',serif; font-size:22px; color:var(--cream); margin:10px 0 10px; }
+.pdesc { font-size:12px; line-height:1.85; color:var(--stone); }
+
+/* CONTACT */
+#contact { display:grid; grid-template-columns:1fr 1fr; }
+#contact-info { background:var(--cream); padding:90px 60px; }
+#contact-info h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(30px,3vw,48px); font-weight:400; color:var(--deep); margin-bottom:44px; line-height:1.2; }
+.citem { display:flex; align-items:flex-start; gap:18px; margin-bottom:28px; }
+.cicon { width:40px; height:40px; background:var(--dark); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.cicon svg { width:17px; height:17px; fill:var(--gold); }
+.clabel { font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:4px; display:block; }
+.cval { font-size:14px; color:var(--deep); line-height:1.65; }
+.cval a { color:var(--deep); text-decoration:none; }
+.cval a:hover { color:var(--gold); }
+.wchat { display:inline-flex; align-items:center; gap:8px; background:#07C160; color:#fff; padding:7px 14px; font-size:12px; font-weight:500; margin-top:6px; border-radius:2px; }
+.wchat svg { width:15px; height:15px; fill:#fff; }
+#map-wrap { min-height:600px; position:relative; }
+#map-wrap iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+
+/* FOOTER */
+footer { background:var(--deep); padding:40px 60px; display:flex; align-items:center; justify-content:space-between; }
+#footer-logo { height:32px; filter:brightness(0) invert(1); opacity:0.6; }
+.fcopy { font-size:11px; color:var(--stone); }
+.flinks { display:flex; gap:24px; }
+.flinks a { text-decoration:none; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--stone); transition:color 0.3s; }
+.flinks a:hover { color:var(--gold); }
+
+@keyframes up { to { opacity:1; transform:none; } }
+@keyframes fi { to { opacity:1; } }
+
+@media(max-width:960px){
+  #hero { grid-template-columns:1fr; }
+  #hero-right { height:55vw; }
+  #about { grid-template-columns:1fr; padding:60px 24px; }
+  .about-imgs { display:none; }
+  #services { padding:60px 24px; }
+  .sgrid { grid-template-columns:1fr; }
+  #process { padding:60px 24px; }
+  .pgrid { grid-template-columns:1fr 1fr; }
+  #contact { grid-template-columns:1fr; }
+  #map-wrap { min-height:280px; height:280px; }
+  footer { flex-direction:column; gap:16px; text-align:center; }
+  #nav { padding:0 20px; }
+  #nav-links { gap:16px; }
+  .gh { padding:0 24px 40px; }
+  .gtrack { padding:0 24px 12px; }
+  #contact-info { padding:60px 24px; }
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#hero-section">
+    <img id="nav-logo" src="/static/images/logo.png" alt="VG Interior Design">
+  </a>
+  <ul id="nav-links">
+    <li><a href="#about"  id="nl-about" ></a></li>
+    <li><a href="#services" id="nl-services"></a></li>
+    <li><a href="#gallery"  id="nl-gallery" ></a></li>
+    <li><a href="#contact"  id="nl-contact" ></a></li>
+  </ul>
+  <div id="lang-wrap">
+    <button class="lbtn on" id="btn-en" onclick="setLang('en')">EN</button>
+    <span class="lsep">|</span>
+    <button class="lbtn" id="btn-zh" onclick="setLang('zh')">中文</button>
+  </div>
+</nav>
+
+<div id="hero-section">
+  <div id="hero">
+    <div id="hero-left">
+      <div id="hero-bg" style="position:absolute;inset:0;background:url('/static/images/1.png') center/cover;opacity:0.35"></div>
+      <p style="font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;opacity:0;animation:fi 1s .2s forwards">VG Interior Design · Sydney</p>
+      <h1 id="hero-tag">Where architecture<br>whispers your story<br>into every room.</h1>
+      <h1 id="hero-tag-zh" style="display:none">让每一个空间，<br>诉说你独有的故事。</h1>
+      <div class="hline"></div>
+      <p id="hero-sub">Architecture · Interior Design · Project Management</p>
+      <a href="#contact" id="hero-cta"></a>
+    </div>
+    <div id="hero-right">
+      <div class="hero-img" style="background:url('/static/images/2.png') center/cover"></div>
+      <div class="hero-imgs-row">
+        <div style="background:url('/static/images/3.png') center/cover"></div>
+        <div style="background:url('/static/images/1.png') center/cover"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="about">
+  <div>
+    <span class="slabel" id="ab-label"></span>
+    <h2 class="rv" id="ab-h2"></h2>
+    <p class="rv" id="ab-p1"></p>
+    <p class="rv" id="ab-p2"></p>
+    <div class="stats rv">
+      <div class="stat"><b>9+</b><small id="st1"></small></div>
+      <div class="stat"><b>3</b><small id="st2"></small></div>
+      <div class="stat"><b>∞</b><small id="st3"></small></div>
+    </div>
+  </div>
+  <div class="about-imgs rv">
+    <div class="aimg aimg1" style="grid-column:span 2; grid-row:span 2;"></div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="sh">
+    <span class="slabel" id="sv-label"></span>
+    <h2 class="rv" id="sv-h2"></h2>
+  </div>
+  <div class="sgrid">
+    <div class="scard rv">
+      <div class="scard-bg" style="background-image:url('/static/images/4.png')"></div>
+      <div class="snum">01</div>
+      <h3 class="stitle">Architecture</h3>
+      <span class="ssub">建筑设计</span>
+      <div class="sline"></div>
+      <p class="sdesc" id="sv-d1"></p>
+    </div>
+    <div class="scard rv">
+      <div class="scard-bg" style="background-image:url('/static/images/5.png')"></div>
+      <div class="snum">02</div>
+      <h3 class="stitle">Interior Design</h3>
+      <span class="ssub">室内设计</span>
+      <div class="sline"></div>
+      <p class="sdesc" id="sv-d2"></p>
+    </div>
+    <div class="scard rv">
+      <div class="scard-bg" style="background-image:url('/static/images/6.png')"></div>
+      <div class="snum">03</div>
+      <h3 class="stitle">Project Management</h3>
+      <span class="ssub">项目管理</span>
+      <div class="sline"></div>
+      <p class="sdesc" id="sv-d3"></p>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="gh">
+    <span class="slabel" id="gl-label"></span>
+    <h2 class="rv" id="gl-h2"></h2>
+  </div>
+  <div class="gtrack">
+    <div class="gitem" style="background-image:url('/static/images/Bedroom 2 - 1.png')"><div class="gcap" id="g1"></div></div>
+    <div class="gitem" style="background-image:url('/static/images/Kitchen 6 -5.png')"><div class="gcap" id="g2"></div></div>
+    <div class="gitem" style="background-image:url('/static/images/Laundry 10.png')"><div class="gcap" id="g3"></div></div>
+    <div class="gitem" style="background-image:url('/static/images/Main Bed  19.png')"><div class="gcap" id="g4"></div></div>
+    <div class="gitem" style="background-image:url('/static/images/Master Ens 03.png')"><div class="gcap" id="g5"></div></div>
+    <div class="gitem" style="background-image:url('/static/images/New Bath 5.png')"><div class="gcap" id="g6"></div></div>
+    <div class="gitem" style="background-image:url('/static/images/new Ground Ensuite 02.png')"><div class="gcap" id="g7"></div></div>
+    <div class="gitem" style="background-image:url('/static/images/Office 2.png')"><div class="gcap" id="g8"></div></div>
+    <div class="gitem" style="background-image:url('/static/images/Powder Room 5.png')"><div class="gcap" id="g9"></div></div>
+    <div class="gitem" style="background-image:url('/static/images/Public L520.png')"><div class="gcap" id="g10"></div></div>
+    <div class="gitem" style="background-image:url('/static/images/Spare Room 14.png')"><div class="gcap" id="g11"></div></div>
+    <div class="gitem" style="background-image:url('/static/images/Wardrobe 1.png')"><div class="gcap" id="g12"></div></div>
+  </div>
+</section>
+
+<section id="process">
+  <span class="slabel" style="color:var(--gold2)" id="pr-label"></span>
+  <h2 class="rv" id="pr-h2"></h2>
+  <div class="pgrid">
+    <div class="pstep rv"><div class="pnum">01</div><h3 class="ptitle" id="pr-t1"></h3><p class="pdesc" id="pr-d1"></p></div>
+    <div class="pstep rv"><div class="pnum">02</div><h3 class="ptitle" id="pr-t2"></h3><p class="pdesc" id="pr-d2"></p></div>
+    <div class="pstep rv"><div class="pnum">03</div><h3 class="ptitle" id="pr-t3"></h3><p class="pdesc" id="pr-d3"></p></div>
+    <div class="pstep rv"><div class="pnum">04</div><h3 class="ptitle" id="pr-t4"></h3><p class="pdesc" id="pr-d4"></p></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div id="contact-info">
+    <span class="slabel" id="ct-label"></span>
+    <h2 class="rv" id="ct-h2"></h2>
+    <div class="citem rv">
+      <div class="cicon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+      <div><span class="clabel">Email</span><p class="cval"><a href="mailto:vicky.design.syd@gmail.com">vicky.design.syd@gmail.com</a></p></div>
+    </div>
+    <div class="citem rv">
+      <div class="cicon"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg></div>
+      <div><span class="clabel" id="ct-phone-label"></span><p class="cval"><a href="tel:0416897288">0416 897 288</a></p></div>
+    </div>
+    <div class="citem rv">
+      <div class="cicon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
+      <div><span class="clabel" id="ct-addr-label"></span><p class="cval"><a href="https://maps.google.com/?q=9+Help+Street+Chatswood+NSW+2067" target="_blank">Level 7, 9 Help Street<br>Chatswood NSW 2067</a></p></div>
+    </div>
+    <div class="citem rv">
+      <div class="cicon"><svg viewBox="0 0 24 24"><path d="M9.5 4C5.36 4 2 6.69 2 10c0 1.89 1.08 3.57 2.78 4.69l-.93 2.79 3.07-1.52c.86.24 1.78.38 2.74.38.26 0 .52-.01.77-.03C10.17 15.55 10 14.8 10 14c0-3.31 3.13-6 7-6h.35C16.44 5.68 13.21 4 9.5 4zM7.5 7.5a1 1 0 110 2 1 1 0 010-2zm4 0a1 1 0 110 2 1 1 0 010-2zm6 3C13.91 10.5 11 12.32 11 14.5s2.91 4 6.5 4c.82 0 1.6-.12 2.31-.33l2.44 1.2-.74-2.22c1.38-.9 2.24-2.16 2.24-3.65 0-2.18-2.91-4-6.5-4zm-2 2.5a.75.75 0 110 1.5.75.75 0 010-1.5zm4 0a.75.75 0 110 1.5.75.75 0 010-1.5z"/></svg></div>
+      <div><span class="clabel">WeChat / 微信</span><div class="wchat"><svg viewBox="0 0 24 24"><path d="M9.5 4C5.36 4 2 6.69 2 10c0 1.89 1.08 3.57 2.78 4.69l-.93 2.79 3.07-1.52c.86.24 1.78.38 2.74.38.26 0 .52-.01.77-.03C10.17 15.55 10 14.8 10 14c0-3.31 3.13-6 7-6h.35C16.44 5.68 13.21 4 9.5 4zM7.5 7.5a1 1 0 110 2 1 1 0 010-2zm4 0a1 1 0 110 2 1 1 0 010-2zm6 3C13.91 10.5 11 12.32 11 14.5s2.91 4 6.5 4c.82 0 1.6-.12 2.31-.33l2.44 1.2-.74-2.22c1.38-.9 2.24-2.16 2.24-3.65 0-2.18-2.91-4-6.5-4zm-2 2.5a.75.75 0 110 1.5.75.75 0 010-1.5zm4 0a.75.75 0 110 1.5.75.75 0 010-1.5z"/></svg>daying6059</div></div>
+    </div>
+  </div>
+  <div id="map-wrap">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3314.4!2d151.182!3d-33.796!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12a8f8a8a8a8a8%3A0x0!2s9+Help+St%2C+Chatswood+NSW+2067!5e0!3m2!1sen!2sau!4v1" allowfullscreen loading="lazy"></iframe>
+  </div>
+</section>
+
+<footer>
+  <img id="footer-logo" src="/static/images/logo.png" alt="VG Interior Design">
+  <span class="fcopy">© 2025 VG Interior Design · Sydney</span>
+  <div class="flinks">
+    <a href="#about" id="fl-about"></a>
+    <a href="#services" id="fl-services"></a>
+    <a href="#gallery" id="fl-gallery"></a>
+    <a href="#contact" id="fl-contact"></a>
+  </div>
+</footer>
+
+<script>
+// All text content
+const T = {
+  en: {
+    'nl-about':'About', 'nl-services':'Services', 'nl-gallery':'Gallery', 'nl-contact':'Contact',
+    'hero-cta':'Start Your Project',
+    'ab-label':'About VG Interior Design',
+    'ab-h2':'Nine years of crafting spaces that define you.',
+    'ab-p1':'VG Interior Design is a Sydney-based studio specialising in architecture, interior design, and full project management. With over 9 years of experience, we transform visions into breathtaking spaces that reflect each client\'s unique identity.',
+    'ab-p2':'Led by Vicky, our approach is deeply personal — we listen, collaborate, and deliver results that exceed expectations, from a single room refresh to a complete architectural build.',
+    'st1':'Years Experience', 'st2':'Core Services', 'st3':'Possibilities',
+    'sv-label':'What We Do',
+    'sv-h2':'Comprehensive Design Solutions',
+    'sv-d1':'From concept to construction documentation, we design buildings that are both structurally sound and aesthetically inspiring. Every line begins with understanding how you want to live.',
+    'sv-d2':'We curate interiors that speak to who you are — from material selection and spatial planning to lighting and furniture. Every detail is intentional, every room is a composition.',
+    'sv-d3':'We oversee your project from approval to handover — coordinating builders, suppliers, and trades with precision so you can focus on the excitement of what\'s coming.',
+    'gl-label':'Selected Works', 'gl-h2':'A glimpse into our world.',
+    'g1':'Bedroom','g2':'Kitchen','g3':'Laundry','g4':'Main Bedroom','g5':'Master Ensuite',
+    'g6':'Bathroom','g7':'Ground Ensuite','g8':'Office','g9':'Powder Room',
+    'g10':'Public Lounge','g11':'Spare Room','g12':'Wardrobe',
+    'pr-label':'How We Work', 'pr-h2':'Your journey with us.',
+    'pr-t1':'Discover','pr-d1':'A deep-dive consultation to understand your vision, lifestyle, and aspirations for the space.',
+    'pr-t2':'Design','pr-d2':'Translating your vision into architectural drawings, 3D renders, material boards, and specifications.',
+    'pr-t3':'Refine','pr-d3':'We collaborate closely to perfect every decision — from structural choices to the texture of a door handle.',
+    'pr-t4':'Deliver','pr-d4':'Managing construction through to handover, ensuring every detail matches the design and exceeds expectations.',
+    'ct-label':'Get In Touch', 'ct-h2':'Let\'s create\nsomething beautiful.',
+    'ct-phone-label':'Phone · Vicky', 'ct-addr-label':'Office',
+    'fl-about':'About','fl-services':'Services','fl-gallery':'Gallery','fl-contact':'Contact'
+  },
+  zh: {
+    'nl-about':'关于我们', 'nl-services':'服务', 'nl-gallery':'作品', 'nl-contact':'联系我们',
+    'hero-cta':'开始你的项目',
+    'ab-label':'关于 VG Interior Design',
+    'ab-h2':'九年匠心，为你塑造理想生活空间。',
+    'ab-p1':'VG Interior Design 是一家位于悉尼的专业设计工作室，专注于建筑设计、室内设计及全流程项目管理。凭借超过9年的行业经验，我们将每位客户的愿景转化为令人心动的生活空间。',
+    'ab-p2':'由 Vicky 领衔，我们的设计理念深植于对客户需求的倾听与理解，从单个房间焕新到完整建筑项目，每一处细节都精心打磨，超越期待。',
+    'st1':'年行业经验', 'st2':'核心服务', 'st3':'无限可能',
+    'sv-label':'我们的服务',
+    'sv-h2':'全方位设计解决方案',
+    'sv-d1':'从概念到施工文件，我们设计兼具结构稳固与美学灵感的建筑。每一条线条背后，都源于对您生活方式的深刻理解。',
+    'sv-d2':'我们打造能够彰显您个性的室内空间。从材料选择、空间规划到灯光与家具——每一处细节都经过深思熟虑，每一个房间都是一首和谐的乐章。',
+    'sv-d3':'我们全程监管项目从审批到交付的每个环节——精准协调施工方、供应商与各专业团队，让您专注于期待，而非繁琐。',
+    'gl-label':'精选作品', 'gl-h2':'走进我们的设计世界。',
+    'g1':'卧室','g2':'厨房','g3':'洗衣房','g4':'主卧','g5':'主卫',
+    'g6':'浴室','g7':'底层套间','g8':'办公室','g9':'化妆间',
+    'g10':'公共休闲区','g11':'多功能室','g12':'衣帽间',
+    'pr-label':'工作流程', 'pr-h2':'与我们携手前行。',
+    'pr-t1':'初步探索','pr-d1':'深入了解您对空间的愿景、生活方式与期望，从倾听开始。',
+    'pr-t2':'概念设计','pr-d2':'将您的愿景转化为建筑图纸、3D效果图、材料方案及详细规格说明。',
+    'pr-t3':'深化完善','pr-d3':'与您紧密协作，完善每一个设计决策——从结构选择到门把手的质感。',
+    'pr-t4':'交付完工','pr-d4':'全程管理施工直至交付，确保每一处细节与设计完美契合，超越您的期待。',
+    'ct-label':'联系我们', 'ct-h2':'让我们一起，\n创造美好空间。',
+    'ct-phone-label':'电话 · Vicky', 'ct-addr-label':'办公室地址',
+    'fl-about':'关于','fl-services':'服务','fl-gallery':'作品','fl-contact':'联系'
+  }
+};
+
+let lang = 'en';
+
+function setLang(l) {
+  lang = l;
+  document.getElementById('btn-en').classList.toggle('on', l==='en');
+  document.getElementById('btn-zh').classList.toggle('on', l==='zh');
+  // hero tagline
+  document.getElementById('hero-tag').style.display = l==='en'?'block':'none';
+  document.getElementById('hero-tag-zh').style.display = l==='zh'?'block':'none';
+  // all text nodes
+  const d = T[l];
+  for (const [id, txt] of Object.entries(d)) {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = txt.replace(/\n/g,'<br>');
+  }
+}
+
+// Smooth scroll with nav offset
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); window.scrollTo({top: t.offsetTop - 75, behavior:'smooth'}); }
+  });
+});
+
+// Scroll reveal
+const ro = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('show'); }), {threshold:0.1});
+document.querySelectorAll('.rv').forEach(el => ro.observe(el));
+
+// Init
+setLang('en');
+</script>
+</body>
+</html>
